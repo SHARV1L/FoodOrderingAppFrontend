@@ -1,0 +1,44 @@
+.appHeader{
+    background-color: #263238;
+    height: 40px;
+    padding: 8px 32px 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.whiteColor{
+    color: whitesmoke;
+}
+
+#searchDiv{    
+    margin-left: 30%;
+    
+}
+
+::placeholder{
+    color:white;       
+}
+
+#loginBtn{    
+    margin-left: 25%;
+}
+#userProfile{
+    margin-left: 25%;
+}
+
+.tabs{
+    margin-bottom: 20px;
+}
+
+.dispNone{
+    display: none;
+}
+
+.dispBlock{
+    display: block;
+}
+
+.red{
+    color: red;
+}

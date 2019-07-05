@@ -1,0 +1,16 @@
+.grey{
+    color: gray;
+}
+
+.section{
+    background-color:lightgrey;
+    
+    width:auto;
+    height: 30%;
+}
+.leftDetails{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+    align-items: center;
+}
