@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {withStyles} from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
+
 //import history from 'react-router-dom';
 
 
@@ -41,6 +42,14 @@ const customStyles = {
         transform: 'translate(-50%, -50%)'
     }
 }
+
+const styles = theme => ({
+    searchUnderline: {
+        '&:after': {
+            borderBottomColor: 'white',
+        },
+    },
+});
 
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired
@@ -115,7 +124,7 @@ class Header extends Component
             loggedInUserEmail:'',
             loggedInUserContact:'',
             anchorEl: null,
-            loggedIn:sessionStorage.getItem('access-token')===null?false:true,
+            loggedIn:sessionStorage.getItem('access-token')==null?false:true,
             openLoginSuccessMsg: false,
             openSignupSuccessMsg: false,
             loginPasswordRequiredMsg:'required'
@@ -154,7 +163,7 @@ tabChangeHandler = (event, value) => {
 loginClickHandler = () => {
     this.state.username === "" ? this.setState({userNameRequired: "dispBlock"}): 
     this.setState({userNameRequired: "dispNone"});
-    this.state.contact.length !== 10? this.setState({invalidNumber:"dispBlock"}):
+    this.state.username.length < 10? this.setState({invalidNumber:"dispBlock"}):
     this.setState({invalidNumber:"dispNone"});
     isNaN(this.state.username)||this.state.username.length !== 10 ? this.setState({invalidNumber: "dispBLock"}):
     this.setState({invalidNumber: "dispNone"});
@@ -175,13 +184,22 @@ loginClickHandler = () => {
                     });
                     return;
                 }
+                if(xhrLogin.getResponseHeader("access-token")==null)
+                {
+                    that.setState({
+                        loginPasswordRequired:'dispBlock',
+                        loginPasswordRequiredMsg:'Invalid Credentials!Please Try Again',
+                        openLoginSuccessMsg:false
+                    });
+                    return;
+                }
             sessionStorage.setItem('uuid',JSON.parse(this.responseText).id);
             sessionStorage.setItem('access-token',xhrLogin.getResponseHeader("access-token"));
             that.setState({loggedInUserFirstname:this.responseText.first_name,
             loggedInUserContact:this.responseText.contact_number,
             loggedInUserLastname:this.responseText.last_name,
             loggedInUserEmail:this.responseText.email_address,
-            loggedIn:true,
+            
             
              });
              if(sessionStorage.getItem('access-token')!==null){
@@ -319,7 +337,7 @@ signupSuccessMsgOnCloseHandler = (event, reason) => {
         return(<div>
             <header className="appHeader">
             <FastFoodIcon className="whiteColor"/>
-          {this.props.showSearchField==='true'?<div id="searchDiv" > <TextField   className="search" placeholder="Search By Restarant Name" InputProps={{
+          {this.props.showSearchField==='true'?<div id="searchDiv" > <TextField  classes={{underline:classes.searchUnderline}} placeholder="Search By Restaurant Name" InputProps={{
            startAdornment:(
                <InputAdornment position="start">
                <SearchIcon className="whiteColor"/>
@@ -469,4 +487,4 @@ signupSuccessMsgOnCloseHandler = (event, reason) => {
     }    
 }
 
-export default Header;
+export default withStyles(styles) (Header);
