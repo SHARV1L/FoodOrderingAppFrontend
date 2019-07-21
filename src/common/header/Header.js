@@ -380,7 +380,7 @@ signupSuccessMsgOnCloseHandler = (event, reason) => {
                     this.state.value === 0 &&
                 <TabContainer>
                     <FormControl required>
-                        <InputLabel htmlFor="contact">Contact Number  </InputLabel>
+                        <InputLabel htmlFor="username">Contact Number  </InputLabel>
                         <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameChangeHandler}/>
                         <FormHelperText className={this.state.contactRequired}><span className="red">required</span></FormHelperText>
                         <FormHelperText className={this.state.invalidNumber}><span className="red">Invalid Contact</span></FormHelperText>
